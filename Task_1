@@ -1,1 +1,39 @@
+===========Task 1============================================
+select p.first_name, p.last_name, a.city, a.state
+from person p
+ left join address a on p.person_id = a.person_id;
+ 
+ ===========Task 2==========================================
+select ranked_table.salary as SecondHighestSalary
+from (select e.salary, row_number() over (order by e.salary desc) as ranc
+      from employee as e
+      group by e.salary
+     ) as ranked_table
+where ranc = 2;
 
+====================Task 3================================
+select e1.name
+from employee_task_3 as e1
+         inner join (select e.id, e.name, e.salary
+                          from employee_task_3 as e
+                          where e.manager_id is null) as tmp_table on e1.manager_id = tmp_table.id
+where e1.salary > tmp_table.salary;
+
+=========================Task 4========================================================
+select pt4.email
+from person_task_4 as pt4
+group by pt4.email
+having (count(pt4.email) > 1);
+
+=============================Task 5==============================================================
+
+select customers.name as customers
+from customers  left join orders on customers .id = orders.customer_id
+where orders.customer_id isnull;
+
+======================================Task 6===================================================
+
+select cor.class
+from courses as cor
+group by cor.class
+having (count(cor.class) >= 5);
